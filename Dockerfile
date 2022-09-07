@@ -1,4 +1,4 @@
-ARG IB_GATEWAY_VERSION=10.12.2p
+ARG IB_GATEWAY_VERSION=10.16.1n
 ARG IBC_VERSION=3.14.0
 
 #
@@ -26,9 +26,9 @@ WORKDIR /tmp/setup
 # Use this instead of "RUN curl .." to install a local file:
 #COPY ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh .
 RUN curl -sSL https://github.com/UnusualAlpha/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh \
-    --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh
+  --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh
 RUN curl -sSL https://github.com/UnusualAlpha/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256 \
-    --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256
+  --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256
 RUN sha256sum --check ./ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256
 RUN chmod a+x ./ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh
 RUN ./ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh -q -dir /root/Jts/ibgateway/${IB_GATEWAY_VERSION}
@@ -67,7 +67,8 @@ RUN apt-get install --no-install-recommends --yes \
   libxi6 \
   libgtk2.0-bin \
   socat \
-  x11vnc
+  x11vnc \
+  lsof
 
 # Copy files
 COPY --from=setup /root/ .
