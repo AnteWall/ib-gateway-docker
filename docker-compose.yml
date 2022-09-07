@@ -12,6 +12,7 @@ services:
       TRADING_MODE: ${TRADING_MODE:-paper}
       READ_ONLY_API: ${READ_ONLY_API:-}
       VNC_SERVER_PASSWORD: ${VNC_SERVER_PASSWORD:-}
+      CLOSE_DOWN_AT: ${CLOSE_DOWN_AT}
     ports:
       - "127.0.0.1:4001:4001"
       - "127.0.0.1:4002:4002"
