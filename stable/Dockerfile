@@ -8,8 +8,8 @@
 
 FROM ubuntu:22.04 as setup
 
-ENV IB_GATEWAY_VERSION=10.12.2v
-ENV IB_GATEWAY_RELEASE_CHANNEL=stable
+ENV IB_GATEWAY_VERSION=10.19.1b
+ENV IB_GATEWAY_RELEASE_CHANNEL=latest
 ENV IBC_VERSION=3.14.0
 
 # Prepare system
@@ -65,7 +65,8 @@ RUN apt-get install --no-install-recommends --yes \
   libxi6 \
   libgtk2.0-bin \
   socat \
-  x11vnc
+  x11vnc \
+  net-tools
 
 # Copy files
 COPY --from=setup /root/ .
