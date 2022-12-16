@@ -10,3 +10,10 @@ if netstat -talpn | grep --line-buffered -q ":$port "; then
     echo "Error: Found an open TCP connection on $port already, unable to setup socat.\n Exiting 1"
     exit 1
 fi
+
+$mainport = "4000"
+
+if netstat -talpn | grep --line-buffered -q ":$mainport "; then
+    echo "Error: Found an open TCP connection on $mainport already, unable to setup socat.\n Exiting 1"
+    exit 1
+fi
