@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 export DISPLAY=:1
 
 rm -f /tmp/.X1-lock
@@ -13,10 +11,6 @@ if [ -n "$VNC_SERVER_PASSWORD" ]; then
 fi
 
 envsubst < "${IBC_INI}.tmpl" > "${IBC_INI}"
-
-/root/scripts/check_ports.sh
-
-/root/scripts/fork_ports_delayed.sh &
 
 /root/ibc/scripts/ibcstart.sh "${TWS_MAJOR_VRSN}" -g \
      "--tws-path=${TWS_PATH}" \

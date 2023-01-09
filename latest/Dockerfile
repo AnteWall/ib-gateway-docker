@@ -66,13 +66,23 @@ RUN apt-get install --no-install-recommends --yes \
   libgtk2.0-bin \
   socat \
   x11vnc \
-  net-tools
+  net-tools \
+  python3 \
+  python3-pip
 
+RUN pip install supervisor
+RUN pip install psutil
 # Copy files
 COPY --from=setup /root/ .
 RUN chmod a+x /root/scripts/*.sh
 COPY --from=setup /usr/local/i4j_jres/ /usr/local/i4j_jres
 
+COPY ./config/logmonitor /root/logmonitor
+
+COPY ./config/supervisord /root/supervisord
+
+ENV PYTHONUNBUFFERED=1
+ENV SOCAT_LOGFILE /var/log/socat.log
 # IBC env vars
 ENV TWS_MAJOR_VRSN ${IB_GATEWAY_VERSION}
 ENV TWS_PATH /root/Jts
@@ -80,5 +90,8 @@ ENV IBC_PATH /root/ibc
 ENV IBC_INI /root/ibc/config.ini
 ENV TWOFA_TIMEOUT_ACTION exit
 
-# Start run script
-CMD ["/root/scripts/run.sh"]
+# Create log file folder if it doesn't exist
+RUN mkdir -p $(dirname ${SOCAT_LOGFILE})
+
+
+CMD ["/usr/local/bin/supervisord", "-c", "/root/supervisord/supervisord.conf"]
